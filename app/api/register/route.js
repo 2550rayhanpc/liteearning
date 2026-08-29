@@ -51,11 +51,9 @@ export async function POST(req) {
       { message: "রেজিস্ট্রেশন সফল হয়েছে!" },
       { status: 201 }
     );
-  } catch (error) {
-    console.error("Register Error:", error);
-    return NextResponse.json(
-      { message: "সার্ভারে সমস্যা হয়েছে, আবার চেষ্টা করুন।" },
-      { status: 500 }
-    );
-  }
+} catch (error) {
+  console.error(error);
+  alert("সমস্যা: " + error.message); // আসল এরর পপ-আপে দেখাবে
+  setIsLoading(false);
+}
 }
