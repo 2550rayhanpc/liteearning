@@ -22,11 +22,11 @@ function Counter({ targetNumber, prefix = "", suffix = "" }) {
   useEffect(() => {
     if (isInView) {
       let start = 0;
-      const duration = 2000; // ২ সেকেন্ড সময় নিবে
+      const duration = 2000;
       const stepTime = Math.abs(Math.floor(duration / targetNumber)) || 10;
 
       const timer = setInterval(() => {
-        start += Math.ceil(targetNumber / 50); // স্মুথ ইনক্রিমেন্ট
+        start += Math.ceil(targetNumber / 50);
         if (start >= targetNumber) {
           setCount(targetNumber);
           clearInterval(timer);
@@ -75,9 +75,9 @@ export default function Home() {
           </button>
           <div className="flex items-center gap-2 font-bold text-xl text-emerald-900 tracking-wide">
             <div className="w-9 h-9 rounded-full bg-emerald-700 text-white flex items-center justify-center font-extrabold text-sm shadow-md border-2 border-amber-400">
-              NK
+              LE
             </div>
-            <span>NIK EARNING</span>
+            <span>LITE EARNING</span>
           </div>
         </div>
 
@@ -112,7 +112,7 @@ export default function Home() {
         </h1>
 
         <p className="text-emerald-900/80 text-base md:text-lg max-w-2xl font-medium mb-8 leading-relaxed">
-          প্রিমিয়াম টাস্ক, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট — <span className="text-amber-600 font-bold">NIK EARNING</span> এ আপনি পাবেন সেরা ডিজিটাল আর্নিং এক্সপেরিয়েন্স।
+          প্রিমিয়াম টাস্ক, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট — <span className="text-amber-600 font-bold">LITE EARNING</span> এ আপনি পাবেন সেরা ডিজিটাল আর্নিং এক্সপেরিয়েন্স।
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
@@ -126,7 +126,7 @@ export default function Home() {
           </button>
         </div>
 
-        {/* 🚀 LIVE ANIMATED COUNTER STATS 🚀 */}
+        {/* LIVE COUNTER STATS */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
           <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
             <h3 className="text-2xl md:text-3xl font-extrabold text-emerald-600 mb-1">
@@ -158,7 +158,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* 3. FEATURES SECTION WITH IN-VIEW ANIMATION */}
+      {/* 3. FEATURES SECTION */}
       <motion.section 
         initial="hidden"
         whileInView="visible"
@@ -168,7 +168,7 @@ export default function Home() {
       >
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-900 mb-2">
-            কেন <span className="text-amber-500">NIK EARNING?</span>
+            কেন <span className="text-amber-500">LITE EARNING?</span>
           </h2>
           <p className="text-slate-600 font-medium mb-10">আধুনিক প্রযুক্তি ও প্রিমিয়াম সেবা একত্রে</p>
 
@@ -203,7 +203,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* 4. REVIEWS SECTION WITH IN-VIEW ANIMATION */}
+      {/* 4. REVIEWS SECTION */}
       <motion.section 
         initial="hidden"
         whileInView="visible"
@@ -224,7 +224,7 @@ export default function Home() {
             },
             {
               name: "MD Mamun Hossen",
-              review: '"NIK EARNING প্ল্যাটফর্মে আমার অভিজ্ঞতা খুবই দারুণ! এখানে কাজ করা বেশ সহজ এবং সব নিয়ম পরিষ্কারভাবে বুঝিয়ে দেওয়া আছে। পেমেন্ট সিস্টেম এবং সাপোর্টিং টিম অনেক হেল্পফুল।"',
+              review: '"LITE EARNING প্ল্যাটফর্মে আমার অভিজ্ঞতা খুবই দারুণ! এখানে কাজ করা বেশ সহজ এবং সব নিয়ম পরিষ্কারভাবে বুঝিয়ে দেওয়া আছে। পেমেন্ট সিস্টেম এবং সাপোর্টিং টিম অনেক হেল্পফুল।"',
               badges: ["ভেরিফাইড", "সফল"]
             }
           ].map((item, idx) => (
@@ -255,7 +255,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* 5. CTA BANNER WITH IN-VIEW ANIMATION */}
+      {/* 5. CTA BANNER */}
       <motion.section 
         initial="hidden"
         whileInView="visible"
@@ -296,9 +296,9 @@ export default function Home() {
       <footer className="bg-white/80 border-t border-emerald-100 pt-10 pb-6 px-4 text-center mt-12">
         <div className="max-w-4xl mx-auto flex flex-col items-center">
           <div className="w-12 h-12 rounded-full bg-emerald-700 text-white flex items-center justify-center font-extrabold text-lg mb-3 shadow-md border-2 border-amber-400">
-            NK
+            LE
           </div>
-          <h3 className="font-extrabold text-xl text-emerald-900 mb-2">NIK EARNING</h3>
+          <h3 className="font-extrabold text-xl text-emerald-900 mb-2">LITE EARNING</h3>
           <p className="text-slate-600 text-sm max-w-md mb-6">
             বাংলাদেশের সেরা প্রিমিয়াম ডিজিটাল আর্নিং প্ল্যাটফর্ম। স্মার্ট টাস্ক, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট।
           </p>
@@ -312,7 +312,7 @@ export default function Home() {
           </div>
 
           <p className="text-xs text-slate-400 font-medium">
-            © 2026 NIK EARNING • BUILT WITH ❤️ IN BD
+            © 2026 LITE EARNING • BUILT WITH ❤️ IN BD
           </p>
         </div>
       </footer>
