@@ -1,230 +1,221 @@
-"use client";
-
 import React from "react";
 import { 
-  Rocket, Shield, Zap, Headset, ArrowRight, 
-  UserCheck, CheckCircle, Star, MessageCircle,
-  Facebook, Youtube, Send, Info
+  Rocket, LogIn, UserPlus, Zap, ShieldCheck, Headphones, 
+  MessageCircle, Star, ArrowRight, Info, Menu 
 } from "lucide-react";
 
-// --- Sub-Components ---
-
-const Navbar = () => (
-  <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#e8f7f2]">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex justify-between items-center h-16">
-        <div className="flex items-center gap-2">
-          <div className="bg-[#047857] p-1.5 rounded-lg">
-            <Zap className="text-white w-6 h-6" />
-          </div>
-          <span className="text-xl font-bold text-[#047857] tracking-tight">NIK EARNING</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <button className="text-[#047857] font-semibold px-4 py-2 hover:bg-[#e8f7f2] rounded-xl transition-all">
-            লগইন
+export default function Home() {
+  return (
+    <div className="min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+      
+      {/* 1. HEADER / NAVBAR */}
+      <header className="w-full bg-white/80 backdrop-blur-md border-b border-emerald-100 sticky top-0 z-50 px-4 md:px-8 py-3 flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-3">
+          <button className="md:hidden text-emerald-800 p-1">
+            <Menu className="w-6 h-6" />
           </button>
-          <button className="bg-[#047857] text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-emerald-900/10 hover:bg-[#065f46] transition-all">
-            রেজিস্ট্রেশন
-          </button>
-        </div>
-      </div>
-    </div>
-  </nav>
-);
-
-const Hero = () => (
-  <section className="relative pt-12 pb-20 overflow-hidden bg-gradient-to-b from-[#e8f7f2] to-white">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-emerald-100 shadow-sm mb-6 animate-bounce">
-        <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-        <span className="text-sm font-medium text-[#047857]">বর্তমানে ১৪৭+ ইউজার অনলাইনে আছে</span>
-      </div>
-      
-      <h1 className="text-4xl md:text-6xl font-extrabold text-[#064e3b] leading-tight mb-6">
-        স্মার্ট <span className="text-[#047857]">উপার্জন</span> প্ল্যাটফর্ম
-      </h1>
-      
-      <p className="max-w-2xl mx-auto text-lg text-[#1e293b] leading-relaxed mb-10">
-        প্রিমিয়াম টাস্ক, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট — <span className="font-bold">NIK EARNING</span> এ আপনি পাবেন সেরা ডিজিটাল আর্নিং এক্সপেরিয়েন্স।
-      </p>
-
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-        <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl shadow-orange-500/20 hover:scale-105 transition-all">
-          <Rocket className="w-5 h-5" /> ফ্রি রেজিস্ট্রেশন
-        </button>
-        <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white/40 backdrop-blur-md border border-emerald-200 text-[#047857] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white transition-all">
-          লগইন করুন
-        </button>
-      </div>
-
-      {/* Stats Bar */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {[
-          { label: "সক্রিয় ইউজার", val: "১৪৭+", icon: UserCheck },
-          { label: "মোট পেমেন্ট", val: "৳ ৪৯০", icon: CheckCircle },
-          { label: "সাপোর্ট", val: "২৪/৭", icon: Headset },
-          { label: "নিরাপদ", val: "১০০%", icon: Shield },
-        ].map((item, idx) => (
-          <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-[#e8f7f2] flex flex-col items-center">
-            <item.icon className="w-8 h-8 text-[#047857] mb-3" />
-            <div className="text-2xl font-bold text-[#064e3b]">{item.val}</div>
-            <div className="text-sm text-slate-500 font-medium">{item.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-const Features = () => (
-  <section className="py-20 bg-white">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#064e3b] mb-4">কেন NIK EARNING?</h2>
-        <p className="text-slate-500 max-w-lg mx-auto">আধুনিক প্রযুক্তি ও প্রিমিয়াম সেবা একত্রে</p>
-      </div>
-      
-      <div className="grid md:grid-cols-3 gap-8">
-        {[
-          {
-            title: "দ্রুত পেমেন্ট",
-            desc: "বিকাশ, নগদ বা ব্যাংকে তাৎক্ষণিক পেমেন্ট পাবেন",
-            icon: Zap,
-            badge: "প্রিমিয়াম"
-          },
-          {
-            title: "১০০% নিরাপদ",
-            desc: "আপনার ডেটা ও ইনকাম সম্পূর্ণ সুরক্ষিত",
-            icon: Shield,
-            badge: "ভেরিফাইড"
-          },
-          {
-            title: "২৪/৭ সাপোর্ট",
-            desc: "যেকোনো সময় আমাদের টিম আপনার পাশে",
-            icon: Headset,
-            badge: "লাইভ"
-          }
-        ].map((feat, idx) => (
-          <div key={idx} className="group p-8 rounded-3xl border border-[#e8f7f2] hover:border-[#047857] hover:shadow-2xl hover:shadow-emerald-900/5 transition-all">
-            <div className="flex justify-between items-start mb-6">
-              <div className="p-3 bg-[#e8f7f2] text-[#047857] rounded-xl group-hover:bg-[#047857] group-hover:text-white transition-colors">
-                <feat.icon className="w-8 h-8" />
-              </div>
-              <span className="text-xs font-bold px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100 uppercase tracking-widest">{feat.badge}</span>
+          <div className="flex items-center gap-2 font-bold text-xl text-emerald-900 tracking-wide">
+            <div className="w-9 h-9 rounded-full bg-emerald-700 text-white flex items-center justify-center font-extrabold text-sm shadow-md border-2 border-amber-400">
+              NK
             </div>
-            <h3 className="text-xl font-bold text-[#064e3b] mb-3">{feat.title}</h3>
-            <p className="text-slate-600 leading-relaxed">{feat.desc}</p>
+            <span>NIK EARNING</span>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
+        </div>
 
-const Testimonials = () => (
-  <section className="py-20 bg-[#f8fafc]">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-3xl font-bold text-center text-[#064e3b] mb-12">ইউজারদের মতামত</h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-[#047857] font-bold">U{i}</div>
-              <div>
-                <h4 className="font-bold text-[#1e293b]">ইউজার নেম {i}</h4>
-                <div className="flex text-amber-400 w-4 h-4">
-                  {[...Array(5)].map((_, j) => <Star key={j} fill="currentColor" size={14} />)}
+        <div className="flex items-center gap-2 md:gap-3">
+          <button className="flex items-center gap-1.5 px-3 md:px-4 py-1.5 text-sm font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition">
+            <LogIn className="w-4 h-4" />
+            <span>লগইন</span>
+          </button>
+          <button className="flex items-center gap-1.5 px-3 md:px-4 py-1.5 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition shadow-md shadow-emerald-600/20">
+            <UserPlus className="w-4 h-4" />
+            <span>রেজিস্ট্রেশন</span>
+          </button>
+        </div>
+      </header>
+
+      {/* 2. HERO SECTION */}
+      <section className="px-4 pt-12 pb-16 text-center max-w-5xl mx-auto flex flex-col items-center">
+        <h1 className="text-4xl md:text-6xl font-black text-emerald-900 tracking-tight leading-tight mb-4">
+          স্মার্ট উপার্জন <br /> প্ল্যাটফর্ম
+        </h1>
+        <p className="text-emerald-900/80 text-base md:text-lg max-w-2xl font-medium mb-8 leading-relaxed">
+          প্রিমিয়াম টাস্ক, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট — <span className="text-amber-600 font-bold">NIK EARNING</span> এ আপনি পাবেন সেরা ডিজিটাল আর্নিং এক্সপেরিয়েন্স।
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+          <button className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-full shadow-lg shadow-amber-500/30 transition transform hover:-translate-y-0.5">
+            <Rocket className="w-5 h-5" />
+            <span>ফ্রি রেজিস্ট্রেশন</span>
+          </button>
+          <button className="flex items-center gap-2 px-6 py-3.5 bg-emerald-100/60 hover:bg-emerald-100 text-emerald-800 font-bold border border-emerald-300/60 rounded-full transition">
+            <LogIn className="w-5 h-5" />
+            <span>লগইন করুন</span>
+          </button>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
+          {[
+            { value: "১৪৭", label: "সক্রিয় ইউজার", color: "text-emerald-600" },
+            { value: "৳ ৪৯০", label: "মোট পেমেন্ট", color: "text-amber-500" },
+            { value: "২৪/৭", label: "সাপোর্ট", color: "text-emerald-600" },
+            { value: "১০০%", label: "নিরাপদ", color: "text-amber-500" },
+          ].map((stat, index) => (
+            <div key={index} className="bg-white/90 backdrop-blur-sm p-4 md:p-6 rounded-2xl border border-emerald-100 shadow-sm text-center">
+              <h3 className={`text-2xl md:text-3xl font-extrabold ${stat.color} mb-1`}>{stat.value}</h3>
+              <p className="text-xs md:text-sm text-slate-600 font-semibold">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. FEATURES SECTION ("কেন NIK EARNING?") */}
+      <section className="px-4 py-16 bg-white/50 border-t border-emerald-100/60">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-900 mb-2">
+            কেন <span className="text-amber-500">NIK EARNING?</span>
+          </h2>
+          <p className="text-slate-600 font-medium mb-10">আধুনিক প্রযুক্তি ও প্রিমিয়াম সেবা একত্রে</p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Feature 1 */}
+            <div className="bg-emerald-50/50 p-6 rounded-3xl border border-emerald-100 flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-full bg-emerald-200/60 flex items-center justify-center text-emerald-700 mb-4">
+                <Zap className="w-8 h-8 fill-emerald-600" />
+              </div>
+              <h3 className="text-xl font-bold text-emerald-900 mb-2">দ্রুত পেমেন্ট</h3>
+              <p className="text-slate-600 text-sm mb-4">বিকাশ, নগদ বা ব্যাংকে তাৎক্ষণিক পেমেন্ট পাবেন</p>
+              <span className="mt-auto px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full">প্রিমিয়াম</span>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="bg-emerald-50/50 p-6 rounded-3xl border-2 border-emerald-500/60 shadow-md flex flex-col items-center text-center relative">
+              <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center mb-4 shadow-lg shadow-emerald-600/30">
+                <ShieldCheck className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold text-emerald-900 mb-2">১০০% নিরাপদ</h3>
+              <p className="text-slate-600 text-sm mb-4">আপনার ডেটা ও ইনকাম সম্পূর্ণ সুরক্ষিত</p>
+              <span className="mt-auto px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-full">ভেরিফাইড</span>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="bg-emerald-50/50 p-6 rounded-3xl border border-emerald-100 flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-full bg-emerald-200/60 flex items-center justify-center text-emerald-700 mb-4">
+                <Headphones className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold text-emerald-900 mb-2">২৪/৭ সাপোর্ট</h3>
+              <p className="text-slate-600 text-sm mb-4">যেকোনো সময় আমাদের টিম আপনার পাশে</p>
+              <span className="mt-auto px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full">সাপোর্ট</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. REVIEWS SECTION */}
+      <section className="px-4 py-16 max-w-5xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-center text-emerald-900 mb-10">
+          ইউজারদের <span className="text-amber-500">মতামত</span>
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            {
+              name: "Mamun islim",
+              review: '"Nice"',
+              badges: ["ভেরিফাইড", "সফল"]
+            },
+            {
+              name: "MD Mamun Hossen",
+              review: '"NIK EARNING প্ল্যাটফর্মে আমার অভিজ্ঞতা খুবই দারুণ! এখানে কাজ করা বেশ সহজ এবং সব নিয়ম পরিষ্কারভাবে বুঝিয়ে দেওয়া আছে। পেমেন্ট সিস্টেম এবং সাপোর্টিং টিম অনেক হেল্পফুল।"',
+              badges: ["ভেরিফাইড", "সফল"]
+            }
+          ].map((item, idx) => (
+            <div key={idx} className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm flex flex-col">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-12 h-12 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-lg">
+                  M
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-800">{item.name}</h4>
+                  <div className="flex text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-amber-400" />
+                    ))}
+                  </div>
                 </div>
               </div>
+              <p className="text-slate-600 text-sm italic mb-4 flex-grow">{item.review}</p>
+              <div className="flex gap-2">
+                {item.badges.map((b, i) => (
+                  <span key={i} className={`text-xs px-2.5 py-1 rounded-full font-semibold text-white ${i === 0 ? "bg-emerald-500" : "bg-amber-500"}`}>
+                    {b}
+                  </span>
+                ))}
+              </div>
             </div>
-            <p className="text-slate-600 italic mb-4">"এই প্ল্যাটফর্মটি সত্যিই অসাধারণ। পেমেন্ট সিস্টেম খুব দ্রুত এবং কাজগুলো সহজ।"</p>
-            <div className="flex gap-2">
-              <span className="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded">ভেরিফাইড</span>
-              <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded">সফল</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-const CTA = () => (
-  <section className="py-12 px-4">
-    <div className="max-w-5xl mx-auto bg-[#047857] rounded-3xl p-8 md:p-16 text-center relative overflow-hidden shadow-2xl">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-      <div className="relative z-10">
-        <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
-          আজই শুরু করুন আপনার <span className="text-[#f59e0b]">যাত্রা</span>
-        </h2>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <button className="bg-white text-[#047857] px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-slate-100 transition-all">
-            ফ্রি রেজিস্ট্রেশন <ArrowRight className="w-5 h-5" />
-          </button>
-          <button className="border border-emerald-400/40 text-white px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
-            <Info className="w-5 h-5" /> আরও জানুন
-          </button>
+          ))}
         </div>
-      </div>
+      </section>
+
+      {/* 5. CTA BANNER */}
+      <section className="px-4 py-8">
+        <div className="max-w-5xl mx-auto bg-gradient-to-r from-emerald-800 to-emerald-900 text-white rounded-3xl p-8 md:p-12 text-center shadow-xl">
+          <h2 className="text-2xl md:text-4xl font-extrabold mb-3">
+            আজই শুরু করুন <span className="text-amber-400">আপনার যাত্রা</span>
+          </h2>
+          <p className="text-emerald-100 text-sm md:text-base mb-6">প্রিমিয়াম ফিচার, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট — সবই আপনার জন্য</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <button className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-900 font-bold rounded-full hover:bg-emerald-50 transition">
+              <UserPlus className="w-4 h-4" />
+              <span>ফ্রি রেজিস্ট্রেশন</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+            <button className="flex items-center gap-2 px-6 py-3 border border-emerald-500 text-white font-bold rounded-full hover:bg-emerald-800/50 transition">
+              <Info className="w-4 h-4" />
+              <span>আরও জানুন</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* FLOATING WHATSAPP BUTTON */}
+      <a 
+        href="https://wa.me/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl z-50 transition transform hover:scale-110"
+      >
+        <MessageCircle className="w-7 h-7" />
+      </a>
+
+      {/* 6. FOOTER */}
+      <footer className="bg-white border-t border-emerald-100 pt-10 pb-6 px-4 text-center mt-12">
+        <div className="max-w-4xl mx-auto flex flex-col items-center">
+          <div className="w-12 h-12 rounded-full bg-emerald-700 text-white flex items-center justify-center font-extrabold text-lg mb-3 shadow-md border-2 border-amber-400">
+            NK
+          </div>
+          <h3 className="font-extrabold text-xl text-emerald-900 mb-2">NIK EARNING</h3>
+          <p className="text-slate-600 text-sm max-w-md mb-6">
+            বাংলাদেশের সেরা প্রিমিয়াম ডিজিটাল আর্নিং প্ল্যাটফর্ম। স্মার্ট টাস্ক, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট।
+          </p>
+
+          {/* Nav Links */}
+          <div className="flex flex-wrap justify-center gap-4 text-sm font-semibold text-emerald-800 mb-6">
+            <a href="#" className="hover:text-emerald-600">হোম</a>
+            <a href="#" className="hover:text-emerald-600">আমাদের সম্পর্কে</a>
+            <a href="#" className="hover:text-emerald-600">যোগাযোগ</a>
+            <a href="#" className="hover:text-emerald-600">প্রাইভেসি পলিসি</a>
+            <a href="#" className="hover:text-emerald-600">টার্মস</a>
+          </div>
+
+          <p className="text-xs text-slate-400 font-medium">
+            © 2026 NIK EARNING • BUILT WITH ❤️ IN BD
+          </p>
+        </div>
+      </footer>
+
     </div>
-  </section>
-);
-
-const Footer = () => (
-  <footer className="bg-white border-t border-slate-100 pt-16 pb-8">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div className="flex items-center justify-center gap-2 mb-4">
-        <Zap className="text-[#047857] w-6 h-6" />
-        <span className="text-2xl font-bold text-[#047857]">NIK EARNING</span>
-      </div>
-      <p className="text-slate-500 mb-8 max-w-md mx-auto">
-        বাংলাদেশের সেরা প্রিমিয়াম ডিজিটাল আর্নিং প্ল্যাটফর্ম। আমরা দিচ্ছি ১০০% পেমেন্ট গ্যারান্টি।
-      </p>
-      
-      {/* Socials */}
-      <div className="flex justify-center gap-4 mb-10">
-        {[Facebook, MessageCircle, Send, Youtube].map((Icon, idx) => (
-          <a key={idx} href="#" className="w-10 h-10 flex items-center justify-center border border-slate-200 rounded-full text-slate-600 hover:bg-[#047857] hover:text-white transition-all">
-            <Icon size={20} />
-          </a>
-        ))}
-      </div>
-
-      <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-semibold text-slate-600 mb-12">
-        {["হোম", "আমাদের সম্পর্কে", "যোগাযোগ", "প্রাইভেসি পলিসি", "টার্মস"].map((link) => (
-          <a key={link} href="#" className="hover:text-[#047857]">{link}</a>
-        ))}
-      </nav>
-      
-      <div className="pt-8 border-t border-slate-100 text-slate-400 text-sm">
-        © 2026 <span className="font-bold">NIK EARNING</span> • BUILT WITH ❤️ IN BD
-      </div>
-    </div>
-  </footer>
-);
-
-const WhatsAppFAB = () => (
-  <a 
-    href="https://wa.me/your-number" 
-    target="_blank" 
-    className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all"
-  >
-    <MessageCircle size={28} />
-  </a>
-);
-
-// --- Main Page Export ---
-
-export default function LandingPage() {
-  return (
-    <main className="min-h-screen">
-      <Navbar />
-      <Hero />
-      <Features />
-      <Testimonials />
-      <CTA />
-      <Footer />
-      <WhatsAppFAB />
-    </main>
   );
 }
