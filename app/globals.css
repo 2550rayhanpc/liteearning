@@ -2,29 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 30, 41, 59;
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  font-family: var(--font-hind), sans-serif;
-}
-
-@layer utilities {
-  .glassmorphism {
-    @apply bg-white/40 backdrop-blur-md border border-white/20;
-  }
-}
-
-/* Custom Scrollbar for a premium look */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-::-webkit-scrollbar-thumb {
-  background: #047857;
-  border-radius: 10px;
+  background-color: #eaf8f3;
+  color: #064e3b;
 }
