@@ -8,7 +8,7 @@ import {
   MessageCircle, Star, ArrowRight, Info, Menu 
 } from "lucide-react";
 
-// ইংরেজি সংখ্যাকে বাংলায় রূপান্তর
+// ইংরেজি সংখ্যাকে বাংলায় রূপান্তর
 const toBanglaDigit = (num) => {
   const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
   return num.toString().replace(/\d/g, (digit) => banglaDigits[digit]);
@@ -60,10 +60,11 @@ export default function Home() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  // নেভিগেশন ও লোডিং ফাংশন
+  // ✅ আপডেট করা নেভিগেশন ও লোডিং ফাংশন
   const handleNavigation = (path = "/login") => {
     setIsLoading(true);
     setTimeout(() => {
+      setIsLoading(false);
       router.push(path);
     }, 1500);
   };
@@ -71,7 +72,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col justify-between relative overflow-x-hidden bg-[#dcfce7]/60 select-none">
       
-      {/* 🟢১. লোডিং স্ক্রিন অ্যানিমেশন */}
+      {/* 🟢 ১. আপডেট করা নতুন লোডিং অ্যানিমেশন */}
       <AnimatePresence>
         {isLoading && (
           <motion.div
@@ -79,28 +80,34 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-[#065f46] flex flex-col items-center justify-center"
+            className="fixed inset-0 z-50 bg-[#043e2e]/95 backdrop-blur-md flex flex-col items-center justify-center"
           >
-            <div className="relative w-16 h-16 flex items-center justify-center mb-6">
+            <div className="relative w-24 h-24 flex items-center justify-center mb-6">
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
-                className="absolute w-14 h-14 border-4 border-emerald-400 border-t-amber-400 border-r-transparent rounded-full shadow-lg"
+                animate={{ scale: [0.8, 1.2, 0.8], rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                className="absolute inset-0 rounded-full border-4 border-dashed border-amber-400 shadow-lg shadow-amber-400/30"
               />
               <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ repeat: Infinity, duration: 1.8, ease: "linear" }}
-                className="absolute w-9 h-9 border-4 border-amber-400 border-b-emerald-300 border-l-transparent rounded-full"
+                animate={{ scale: [1.1, 0.9, 1.1], rotate: -360 }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                className="absolute w-16 h-16 rounded-full border-4 border-emerald-400 border-t-transparent"
               />
+              <motion.div 
+                animate={{ scale: [0.9, 1.1, 0.9] }}
+                transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+                className="w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center shadow-md font-black text-emerald-950 text-xs"
+              >
+                LE
+              </motion.div>
             </div>
 
             <motion.div
               animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-              className="text-white text-lg font-bold tracking-widest flex items-center gap-1 drop-shadow-md"
+              transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
+              className="text-amber-300 text-lg font-extrabold tracking-widest flex items-center gap-1 drop-shadow-md"
             >
-              <span>লো ড</span>
-              <span className="ml-1">হ চ্ছে . . .</span>
+              <span>প্রসেসিং হচ্ছে . . .</span>
             </motion.div>
           </motion.div>
         )}
@@ -145,10 +152,11 @@ export default function Home() {
             <span>লগইন</span>
           </motion.button>
 
+          {/* ✅ লিঙ্ক আপডেট: /register */}
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => handleNavigation('/login')}
+            onClick={() => handleNavigation('/register')}
             className="flex items-center gap-1.5 px-3 md:px-4 py-1.5 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition shadow-md shadow-emerald-600/20 cursor-pointer"
           >
             <UserPlus className="w-4 h-4" />
@@ -167,7 +175,7 @@ export default function Home() {
       >
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-emerald-200 rounded-full text-xs font-bold text-emerald-800 shadow-sm mb-6">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          <span>লাইভ • ২৪/৭ সক্রিয়</span>
+          <span>লাইভ • ২৪/৭ সক্রিয়</span>
           <span className="w-2 h-2 rounded-full bg-amber-400"></span>
         </div>
 
@@ -180,10 +188,11 @@ export default function Home() {
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+          {/* ✅ লিঙ্ক আপডেট: /register */}
           <motion.button 
             whileHover={{ scale: 1.06, translateY: -2 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => handleNavigation('/login')}
+            onClick={() => handleNavigation('/register')}
             className="flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-full shadow-lg shadow-amber-500/30 transition cursor-pointer"
           >
             <Rocket className="w-5 h-5 animate-bounce" />
@@ -204,7 +213,7 @@ export default function Home() {
         {/* STATS */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
           {[
-            { label: "সক্রিয় ইউজার", target: 147, color: "text-emerald-600" },
+            { label: "সক্রিয় ইউজার", target: 147, color: "text-emerald-600" },
             { label: "মোট পেমেন্ট", target: 490, prefix: "৳ ", color: "text-amber-500" },
             { label: "সাপোর্ট", text: "২৪/৭", color: "text-emerald-600" },
             { label: "নিরাপদ", target: 100, suffix: "%", color: "text-amber-500" }
@@ -310,10 +319,11 @@ export default function Home() {
           <p className="text-emerald-100 text-sm md:text-base mb-6">প্রিমিয়াম ফিচার, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট — সবই আপনার জন্য</p>
           
           <div className="flex flex-wrap justify-center gap-4">
+            {/* ✅ লিঙ্ক আপডেট: /register */}
             <motion.button 
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
-              onClick={() => handleNavigation('/login')}
+              onClick={() => handleNavigation('/register')}
               className="flex items-center gap-2 px-7 py-3 bg-white text-emerald-900 font-bold rounded-full hover:bg-emerald-50 transition shadow-lg cursor-pointer"
             >
               <UserPlus className="w-4 h-4" />
