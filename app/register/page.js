@@ -23,7 +23,7 @@ export default function RegisterPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 🟢 ব্যাকএন্ড API-এর সাথে সংযুক্ত handleRegister ফাংশন
+  // 🟢 আপডেট করা handleRegister ফাংশন
   const handleRegister = async (e) => {
     if (e) e.preventDefault();
     setIsLoading(true);
@@ -41,15 +41,15 @@ export default function RegisterPage() {
 
       if (res.ok) {
         alert(data.message || "রেজিস্ট্রেশন সফল হয়েছে!");
-        setIsLoading(false);
         router.push("/login"); // রেজিস্ট্রেশন সফল হলে লগইন পেজে নিয়ে যাবে
       } else {
-        alert(data.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে");
-        setIsLoading(false);
+        // ব্যাকএন্ড থেকে আসা নির্দিষ্ট এরর মেসেজ দেখাবে
+        alert(data.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে!");
       }
     } catch (error) {
-      console.error(error);
-      alert("নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।");
+      console.error("Register Error:", error);
+      alert("নেটওয়ার্ক বা সার্ভার সমস্যা: " + error.message);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -66,7 +66,7 @@ export default function RegisterPage() {
             নতুন অ্যাকাউন্ট খুলুন
           </h2>
           <p className="text-slate-400 text-sm mt-2">
-            আজই যুক্ত হন এবং সহজে আয় করা শুরু করুন
+            আজই যুক্ত হন এবং সহজে আয় করা শুরু করুন
           </p>
         </div>
 
@@ -124,7 +124,7 @@ export default function RegisterPage() {
 
           {/* Password */}
           <div>
-            <label className="block text-slate-300 text-sm mb-1">পাসওয়ার্ড</label>
+            <label className="block text-slate-300 text-sm mb-1">পাসওয়ার্ড</label>
             <div className="relative">
               <Lock className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
               <input
@@ -141,7 +141,7 @@ export default function RegisterPage() {
 
           {/* Confirm Password */}
           <div>
-            <label className="block text-slate-300 text-sm mb-1">কনফার্ম পাসওয়ার্ড</label>
+            <label className="block text-slate-300 text-sm mb-1">কনফার্ম পাসওয়ার্ড</label>
             <div className="relative">
               <Lock className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
               <input
