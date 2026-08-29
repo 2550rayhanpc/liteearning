@@ -1,14 +1,66 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { 
   Rocket, LogIn, UserPlus, Zap, ShieldCheck, Headphones, 
   MessageCircle, Star, ArrowRight, Info, Menu 
 } from "lucide-react";
 
+// ইংরেজি সংখ্যাকে বাংলায় রূপান্তর করার ফাংশন
+const toBanglaDigit = (num) => {
+  const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return num.toString().replace(/\d/g, (digit) => banglaDigits[digit]);
+};
+
+// লাইভ নাম্বার কাউন্টার কম্পোনেন্ট
+function Counter({ targetNumber, prefix = "", suffix = "" }) {
+  const [count, setCount] = useState(0);
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      let start = 0;
+      const duration = 2000; // ২ সেকেন্ড সময় নিবে
+      const stepTime = Math.abs(Math.floor(duration / targetNumber)) || 10;
+
+      const timer = setInterval(() => {
+        start += Math.ceil(targetNumber / 50); // স্মুথ ইনক্রিমেন্ট
+        if (start >= targetNumber) {
+          setCount(targetNumber);
+          clearInterval(timer);
+        } else {
+          setCount(start);
+        }
+      }, stepTime);
+
+      return () => clearInterval(timer);
+    }
+  }, [isInView, targetNumber]);
+
+  return (
+    <span ref={ref}>
+      {prefix}{toBanglaDigit(count)}{suffix}
+    </span>
+  );
+}
+
+// স্ক্রোল অ্যানিমেশন এরিয়া
+const sectionVariant = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.6, ease: "easeOut" } 
+  }
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col justify-between relative overflow-x-hidden bg-[#dcfce7]/60">
       
-      {/* BACKGROUND GRAPHICS (Soft Circles like your screenshot) */}
+      {/* BACKGROUND GRAPHICS */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none -z-10 overflow-hidden">
         <div className="absolute -top-20 -left-20 w-96 h-96 bg-emerald-200/50 rounded-full blur-3xl"></div>
         <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-teal-200/40 rounded-full blur-3xl"></div>
@@ -42,16 +94,19 @@ export default function Home() {
       </header>
 
       {/* 2. HERO SECTION */}
-      <section className="px-4 pt-10 pb-16 text-center max-w-5xl mx-auto flex flex-col items-center">
-        
-        {/* Live Badge */}
+      <motion.section 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={sectionVariant}
+        className="px-4 pt-10 pb-16 text-center max-w-5xl mx-auto flex flex-col items-center"
+      >
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-emerald-200 rounded-full text-xs font-bold text-emerald-800 shadow-sm mb-6">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
           <span>লাইভ • ২৪/৭ সক্রিয়</span>
           <span className="w-2 h-2 rounded-full bg-amber-400"></span>
         </div>
 
-        {/* Headline with Animated Gradient "উপার্জন" */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-emerald-950 tracking-tight leading-tight mb-6">
           স্মার্ট <span className="animate-gradient-text drop-shadow-sm">উপার্জন</span> <br /> প্ল্যাটফর্ম
         </h1>
@@ -60,7 +115,6 @@ export default function Home() {
           প্রিমিয়াম টাস্ক, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট — <span className="text-amber-600 font-bold">NIK EARNING</span> এ আপনি পাবেন সেরা ডিজিটাল আর্নিং এক্সপেরিয়েন্স।
         </p>
 
-        {/* Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
           <button className="flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-full shadow-lg shadow-amber-500/30 transition transform hover:-translate-y-0.5">
             <Rocket className="w-5 h-5 animate-bounce" />
@@ -72,24 +126,46 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Stats Grid */}
+        {/* 🚀 LIVE ANIMATED COUNTER STATS 🚀 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
-          {[
-            { value: "১৪৭", label: "সক্রিয় ইউজার", color: "text-emerald-600" },
-            { value: "৳ ৪৯০", label: "মোট পেমেন্ট", color: "text-amber-500" },
-            { value: "২৪/৭", label: "সাপোর্ট", color: "text-emerald-600" },
-            { value: "১০০%", label: "নিরাপদ", color: "text-amber-500" },
-          ].map((stat, index) => (
-            <div key={index} className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
-              <h3 className={`text-2xl md:text-3xl font-extrabold ${stat.color} mb-1`}>{stat.value}</h3>
-              <p className="text-xs md:text-sm text-slate-600 font-semibold">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+          <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-emerald-600 mb-1">
+              <Counter targetNumber={147} />
+            </h3>
+            <p className="text-xs md:text-sm text-slate-600 font-semibold">সক্রিয় ইউজার</p>
+          </div>
 
-      {/* 3. FEATURES SECTION */}
-      <section className="px-4 py-16 bg-white/40 border-t border-emerald-100/60">
+          <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-amber-500 mb-1">
+              <Counter targetNumber={490} prefix="৳ " />
+            </h3>
+            <p className="text-xs md:text-sm text-slate-600 font-semibold">মোট পেমেন্ট</p>
+          </div>
+
+          <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-emerald-600 mb-1">
+              ২৪/৭
+            </h3>
+            <p className="text-xs md:text-sm text-slate-600 font-semibold">সাপোর্ট</p>
+          </div>
+
+          <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-amber-500 mb-1">
+              <Counter targetNumber={100} suffix="%" />
+            </h3>
+            <p className="text-xs md:text-sm text-slate-600 font-semibold">নিরাপদ</p>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 3. FEATURES SECTION WITH IN-VIEW ANIMATION */}
+      <motion.section 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={sectionVariant}
+        className="px-4 py-16 bg-white/40 border-t border-emerald-100/60"
+      >
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-900 mb-2">
             কেন <span className="text-amber-500">NIK EARNING?</span>
@@ -125,10 +201,16 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* 4. REVIEWS SECTION */}
-      <section className="px-4 py-16 max-w-5xl mx-auto">
+      {/* 4. REVIEWS SECTION WITH IN-VIEW ANIMATION */}
+      <motion.section 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={sectionVariant}
+        className="px-4 py-16 max-w-5xl mx-auto"
+      >
         <h2 className="text-3xl md:text-4xl font-extrabold text-center text-emerald-900 mb-10">
           ইউজারদের <span className="text-amber-500">মতামত</span>
         </h2>
@@ -171,10 +253,16 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      {/* 5. CTA BANNER */}
-      <section className="px-4 py-8">
+      {/* 5. CTA BANNER WITH IN-VIEW ANIMATION */}
+      <motion.section 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={sectionVariant}
+        className="px-4 py-8"
+      >
         <div className="max-w-5xl mx-auto bg-gradient-to-r from-emerald-800 to-emerald-900 text-white rounded-3xl p-8 md:p-12 text-center shadow-xl">
           <h2 className="text-2xl md:text-4xl font-extrabold mb-3">
             আজই শুরু করুন <span className="text-amber-400">আপনার যাত্রা</span>
@@ -192,7 +280,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* FLOATING WHATSAPP BUTTON */}
       <a 
