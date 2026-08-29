@@ -12,9 +12,9 @@ export async function POST(req) {
       return NextResponse.json({ message: "সকল ঘর পূরণ করা আবশ্যক!" }, { status: 400 });
     }
 
-    // ২. পাসওয়ার্ড ম্যাচ চেকিং
+    // ২. পাসওয়ার্ড ম্যাচ চেকিং
     if (password !== confirmPassword) {
-      return NextResponse.json({ message: "পাসওয়ার্ড দুটি মেলেনি!" }, { status: 400 });
+      return NextResponse.json({ message: "পাসওয়ার্ড দুটি মেলেনি!" }, { status: 400 });
     }
 
     // ৩. ডাটাবেসে কানেক্ট
@@ -27,12 +27,12 @@ export async function POST(req) {
 
     if (existingUser) {
       return NextResponse.json(
-        { message: "এই ইমেইল বা মোবাইল নম্বরটি দিয়ে ইতিপূর্বে রেজিস্ট্রেশন করা হয়েছে!" },
+        { message: "এই ইমেইল বা মোবাইল নম্বরটি দিয়ে ইতিপূর্বে রেজিস্ট্রেশন করা হয়েছে!" },
         { status: 400 }
       );
     }
 
-    // ৫. পাসওয়ার্ড এনক্রিপ্ট/হ্যাশ করা (সিকিউরিটির জন্য)
+    // ৫. পাসওয়ার্ড এনক্রিপ্ট/হ্যাশ করা
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // ৬. নতুন ইউজার সেভ করা
@@ -41,19 +41,22 @@ export async function POST(req) {
       phone,
       email,
       password: hashedPassword,
-      referCode,
+      referCode: referCode || null,
       role: "user",
     });
 
     await newUser.save();
 
     return NextResponse.json(
-      { message: "রেজিস্ট্রেশন সফল হয়েছে!" },
+      { message: "রেজিস্ট্রেশন সফল হয়েছে!" },
       { status: 201 }
     );
-} catch (error) {
-  console.error(error);
-  alert("সমস্যা: " + error.message); // আসল এরর পপ-আপে দেখাবে
-  setIsLoading(false);
-}
+  } catch (error) {
+    console.error("API Error:", error);
+    // আসল এরর মেসেজটি Response হিসেবে ফ্রন্টএন্ডে পাঠাবে
+    return NextResponse.json(
+      { message: "সার্ভার এরর: " + error.message },
+      { status: 500 }
+    );
+  }
 }
