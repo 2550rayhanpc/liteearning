@@ -22,7 +22,7 @@ function Counter({ targetNumber, prefix = "", suffix = "" }) {
   useEffect(() => {
     if (isInView) {
       let start = 0;
-      const duration = 3500; // ৩.৫ সেকেন্ড (Slow কাউন্টিং)
+      const duration = 3500;
       const increment = targetNumber / (duration / 20);
 
       const timer = setInterval(() => {
@@ -46,9 +46,9 @@ function Counter({ targetNumber, prefix = "", suffix = "" }) {
   );
 }
 
-// স্ক্রোল অ্যানিমেশন এরিয়া
+// স্ক্রোল অ্যানিমেশন
 const sectionVariant = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { opacity: 0, y: 40 },
   visible: { 
     opacity: 1, 
     y: 0, 
@@ -58,7 +58,7 @@ const sectionVariant = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col justify-between relative overflow-x-hidden bg-[#dcfce7]/60">
+    <div className="min-h-screen flex flex-col justify-between relative overflow-x-hidden bg-[#dcfce7]/60 select-none">
       
       {/* BACKGROUND GRAPHICS */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none -z-10 overflow-hidden">
@@ -70,26 +70,41 @@ export default function Home() {
       {/* 1. HEADER / NAVBAR */}
       <header className="w-full bg-white/70 backdrop-blur-md border-b border-emerald-100/80 sticky top-0 z-50 px-4 md:px-8 py-3 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
-          <button className="md:hidden text-emerald-800 p-1">
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="md:hidden text-emerald-800 p-1 rounded-lg focus:outline-none"
+          >
             <Menu className="w-6 h-6" />
-          </button>
-          <div className="flex items-center gap-2 font-bold text-xl text-emerald-900 tracking-wide">
-            <div className="w-9 h-9 rounded-full bg-emerald-700 text-white flex items-center justify-center font-extrabold text-sm shadow-md border-2 border-amber-400">
+          </motion.button>
+          <div className="flex items-center gap-2 font-bold text-xl text-emerald-900 tracking-wide cursor-pointer">
+            <motion.div 
+              whileHover={{ rotate: 10, scale: 1.05 }}
+              className="w-9 h-9 rounded-full bg-emerald-700 text-white flex items-center justify-center font-extrabold text-sm shadow-md border-2 border-amber-400"
+            >
               LE
-            </div>
+            </motion.div>
             <span>LITE EARNING</span>
           </div>
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <button className="flex items-center gap-1.5 px-3 md:px-4 py-1.5 text-sm font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-1.5 px-3 md:px-4 py-1.5 text-sm font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition"
+          >
             <LogIn className="w-4 h-4" />
             <span>লগইন</span>
-          </button>
-          <button className="flex items-center gap-1.5 px-3 md:px-4 py-1.5 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition shadow-md shadow-emerald-600/20">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-1.5 px-3 md:px-4 py-1.5 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition shadow-md shadow-emerald-600/20"
+          >
             <UserPlus className="w-4 h-4" />
             <span>রেজিস্ট্রেশন</span>
-          </button>
+          </motion.button>
         </div>
       </header>
 
@@ -116,49 +131,49 @@ export default function Home() {
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-          <button className="flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-full shadow-lg shadow-amber-500/30 transition transform hover:-translate-y-0.5">
+          <motion.button 
+            whileHover={{ scale: 1.06, translateY: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-full shadow-lg shadow-amber-500/30 transition cursor-pointer"
+          >
             <Rocket className="w-5 h-5 animate-bounce" />
             <span>ফ্রি রেজিস্ট্রেশন</span>
-          </button>
-          <button className="flex items-center gap-2 px-7 py-3.5 bg-white/60 hover:bg-white text-emerald-900 font-bold border border-emerald-200 rounded-full transition shadow-sm">
+          </motion.button>
+          
+          <motion.button 
+            whileHover={{ scale: 1.05, translateY: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-7 py-3.5 bg-white/70 hover:bg-white text-emerald-900 font-bold border border-emerald-200 rounded-full transition shadow-sm cursor-pointer"
+          >
             <LogIn className="w-5 h-5" />
             <span>লগইন করুন</span>
-          </button>
+          </motion.button>
         </div>
 
-        {/* LIVE SLOW COUNTER STATS */}
+        {/* LIVE STATS */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
-          <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-emerald-600 mb-1">
-              <Counter targetNumber={147} />
-            </h3>
-            <p className="text-xs md:text-sm text-slate-600 font-semibold">সক্রিয় ইউজার</p>
-          </div>
-
-          <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-amber-500 mb-1">
-              <Counter targetNumber={490} prefix="৳ " />
-            </h3>
-            <p className="text-xs md:text-sm text-slate-600 font-semibold">মোট পেমেন্ট</p>
-          </div>
-
-          <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-emerald-600 mb-1">
-              ২৪/৭
-            </h3>
-            <p className="text-xs md:text-sm text-slate-600 font-semibold">সাপোর্ট</p>
-          </div>
-
-          <div className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center transform transition hover:-translate-y-1">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-amber-500 mb-1">
-              <Counter targetNumber={100} suffix="%" />
-            </h3>
-            <p className="text-xs md:text-sm text-slate-600 font-semibold">নিরাপদ</p>
-          </div>
+          {[
+            { label: "সক্রিয় ইউজার", target: 147, color: "text-emerald-600" },
+            { label: "মোট পেমেন্ট", target: 490, prefix: "৳ ", color: "text-amber-500" },
+            { label: "সাপোর্ট", text: "২৪/৭", color: "text-emerald-600" },
+            { label: "নিরাপদ", target: 100, suffix: "%", color: "text-amber-500" }
+          ].map((stat, idx) => (
+            <motion.div 
+              key={idx}
+              whileHover={{ scale: 1.05, y: -4 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="bg-white/80 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-emerald-100/80 shadow-sm text-center cursor-pointer"
+            >
+              <h3 className={`text-2xl md:text-3xl font-extrabold ${stat.color} mb-1`}>
+                {stat.text ? stat.text : <Counter targetNumber={stat.target} prefix={stat.prefix} suffix={stat.suffix} />}
+              </h3>
+              <p className="text-xs md:text-sm text-slate-600 font-semibold">{stat.label}</p>
+            </motion.div>
+          ))}
         </div>
       </motion.section>
 
-      {/* 3. FEATURES SECTION */}
+      {/* 3. FEATURES SECTION WITH ENHANCED ANIMATION */}
       <motion.section 
         initial="hidden"
         whileInView="visible"
@@ -173,32 +188,80 @@ export default function Home() {
           <p className="text-slate-600 font-medium mb-10">আধুনিক প্রযুক্তি ও প্রিমিয়াম সেবা একত্রে</p>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white/70 p-6 rounded-3xl border border-emerald-100/80 flex flex-col items-center text-center shadow-sm">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
-                <Zap className="w-8 h-8 fill-emerald-600" />
-              </div>
+            {/* CARD 1 */}
+            <motion.div 
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="bg-white/80 p-6 rounded-3xl border border-emerald-100 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group"
+            >
+              <motion.div 
+                whileHover={{ rotate: 12, scale: 1.1 }}
+                className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300"
+              >
+                <Zap className="w-8 h-8 fill-current" />
+              </motion.div>
               <h3 className="text-xl font-bold text-emerald-900 mb-2">দ্রুত পেমেন্ট</h3>
-              <p className="text-slate-600 text-sm mb-4">বিকাশ, নগদ বা ব্যাংকে তাৎক্ষণিক পেমেন্ট পাবেন</p>
-              <span className="mt-auto px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full">প্রিমিয়াম</span>
-            </div>
+              <p className="text-slate-600 text-sm mb-4 leading-relaxed">বিকাশ, নগদ বা ব্যাংকে তাৎক্ষণিক পেমেন্ট পাবেন</p>
+              
+              <motion.span 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="mt-auto px-4 py-1.5 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm hover:bg-amber-600 transition"
+              >
+                প্রিমিয়াম
+              </motion.span>
+            </motion.div>
 
-            <div className="bg-white/90 p-6 rounded-3xl border-2 border-emerald-500/80 shadow-md flex flex-col items-center text-center relative">
-              <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center mb-4 shadow-lg shadow-emerald-600/30">
+            {/* CARD 2 */}
+            <motion.div 
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="bg-white/90 p-6 rounded-3xl border-2 border-emerald-500 shadow-md hover:shadow-xl flex flex-col items-center text-center relative cursor-pointer group"
+            >
+              <motion.div 
+                whileHover={{ scale: 1.15 }}
+                className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center mb-4 shadow-lg shadow-emerald-600/30 group-hover:bg-emerald-700 transition"
+              >
                 <ShieldCheck className="w-8 h-8" />
-              </div>
+              </motion.div>
               <h3 className="text-xl font-bold text-emerald-900 mb-2">১০০% নিরাপদ</h3>
-              <p className="text-slate-600 text-sm mb-4">আপনার ডেটা ও ইনকাম সম্পূর্ণ সুরক্ষিত</p>
-              <span className="mt-auto px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-full">ভেরিফাইড</span>
-            </div>
+              <p className="text-slate-600 text-sm mb-4 leading-relaxed">আপনার ডেটা ও ইনকাম সম্পূর্ণ সুরক্ষিত</p>
+              
+              <motion.span 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="mt-auto px-4 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-full shadow-sm hover:bg-emerald-700 transition"
+              >
+                ভেরিফাইড
+              </motion.span>
+            </motion.div>
 
-            <div className="bg-white/70 p-6 rounded-3xl border border-emerald-100/80 flex flex-col items-center text-center shadow-sm">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4">
+            {/* CARD 3 */}
+            <motion.div 
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="bg-white/80 p-6 rounded-3xl border border-emerald-100 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group"
+            >
+              <motion.div 
+                whileHover={{ rotate: -12, scale: 1.1 }}
+                className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300"
+              >
                 <Headphones className="w-8 h-8" />
-              </div>
+              </motion.div>
               <h3 className="text-xl font-bold text-emerald-900 mb-2">২৪/৭ সাপোর্ট</h3>
-              <p className="text-slate-600 text-sm mb-4">যেকোনো সময় আমাদের টিম আপনার পাশে</p>
-              <span className="mt-auto px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full">সাপোর্ট</span>
-            </div>
+              <p className="text-slate-600 text-sm mb-4 leading-relaxed">যেকোনো সময় আমাদের টিম আপনার পাশে</p>
+              
+              <motion.span 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="mt-auto px-4 py-1.5 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm hover:bg-amber-600 transition"
+              >
+                সাপোর্ট
+              </motion.span>
+            </motion.div>
           </div>
         </div>
       </motion.section>
@@ -228,7 +291,11 @@ export default function Home() {
               badges: ["ভেরিফাইড", "সফল"]
             }
           ].map((item, idx) => (
-            <div key={idx} className="bg-white/80 p-6 rounded-3xl border border-emerald-100 shadow-sm flex flex-col">
+            <motion.div 
+              key={idx}
+              whileHover={{ y: -4 }}
+              className="bg-white/80 p-6 rounded-3xl border border-emerald-100 shadow-sm flex flex-col hover:shadow-md transition"
+            >
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-lg">
                   M
@@ -245,17 +312,21 @@ export default function Home() {
               <p className="text-slate-600 text-sm italic mb-4 flex-grow">{item.review}</p>
               <div className="flex gap-2">
                 {item.badges.map((b, i) => (
-                  <span key={i} className={`text-xs px-2.5 py-1 rounded-full font-semibold text-white ${i === 0 ? "bg-emerald-500" : "bg-amber-500"}`}>
+                  <motion.span 
+                    key={i} 
+                    whileHover={{ scale: 1.05 }}
+                    className={`text-xs px-2.5 py-1 rounded-full font-semibold text-white ${i === 0 ? "bg-emerald-500" : "bg-amber-500"}`}
+                  >
                     {b}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.section>
 
-      {/* 5. CTA BANNER */}
+      {/* 5. CTA BANNER WITH CLICK ANIMATIONS */}
       <motion.section 
         initial="hidden"
         whileInView="visible"
@@ -268,47 +339,63 @@ export default function Home() {
             আজই শুরু করুন <span className="text-amber-400">আপনার যাত্রা</span>
           </h2>
           <p className="text-emerald-100 text-sm md:text-base mb-6">প্রিমিয়াম ফিচার, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট — সবই আপনার জন্য</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <button className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-900 font-bold rounded-full hover:bg-emerald-50 transition">
+          
+          <div className="flex flex-wrap justify-center gap-4">
+            <motion.button 
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              className="flex items-center gap-2 px-7 py-3 bg-white text-emerald-900 font-bold rounded-full hover:bg-emerald-50 transition shadow-lg cursor-pointer"
+            >
               <UserPlus className="w-4 h-4" />
               <span>ফ্রি রেজিস্ট্রেশন</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
-            <button className="flex items-center gap-2 px-6 py-3 border border-emerald-500 text-white font-bold rounded-full hover:bg-emerald-800/50 transition">
+            </motion.button>
+
+            <motion.button 
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              className="flex items-center gap-2 px-7 py-3 border-2 border-emerald-400 text-white font-bold rounded-full hover:bg-emerald-800/50 transition cursor-pointer"
+            >
               <Info className="w-4 h-4" />
               <span>আরও জানুন</span>
-            </button>
+            </motion.button>
           </div>
         </div>
       </motion.section>
 
-      {/* FLOATING WHATSAPP BUTTON */}
-      <a 
+      {/* FLOATING WHATSAPP BUTTON WITH CLICK ANIMATION */}
+      <motion.a 
         href="https://wa.me/" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl z-50 transition transform hover:scale-110 animate-bounce"
+        whileHover={{ scale: 1.15, rotate: 10 }}
+        whileTap={{ scale: 0.85 }}
+        className="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl z-50 transition animate-bounce cursor-pointer"
       >
         <MessageCircle className="w-7 h-7" />
-      </a>
+      </motion.a>
 
       {/* 6. FOOTER */}
       <footer className="bg-white/80 border-t border-emerald-100 pt-10 pb-6 px-4 text-center mt-12">
         <div className="max-w-4xl mx-auto flex flex-col items-center">
-          <div className="w-12 h-12 rounded-full bg-emerald-700 text-white flex items-center justify-center font-extrabold text-lg mb-3 shadow-md border-2 border-amber-400">
+          <motion.div 
+            whileHover={{ scale: 1.1, rotate: 360 }}
+            transition={{ duration: 0.5 }}
+            className="w-12 h-12 rounded-full bg-emerald-700 text-white flex items-center justify-center font-extrabold text-lg mb-3 shadow-md border-2 border-amber-400 cursor-pointer"
+          >
             LE
-          </div>
+          </motion.div>
           <h3 className="font-extrabold text-xl text-emerald-900 mb-2">LITE EARNING</h3>
           <p className="text-slate-600 text-sm max-w-md mb-6">
             বাংলাদেশের সেরা প্রিমিয়াম ডিজিটাল আর্নিং প্ল্যাটফর্ম। স্মার্ট টাস্ক, দ্রুত পেমেন্ট এবং ২৪/৭ সাপোর্ট।
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 text-sm font-semibold text-emerald-800 mb-6">
-            <a href="#" className="hover:text-emerald-600">হোম</a>
-            <a href="#" className="hover:text-emerald-600">আমাদের সম্পর্কে</a>
-            <a href="#" className="hover:text-emerald-600">যোগাযোগ</a>
-            <a href="#" className="hover:text-emerald-600">প্রাইভেসি পলিসি</a>
-            <a href="#" className="hover:text-emerald-600">টার্মস</a>
+            <a href="#" className="hover:text-emerald-600 transition">হোম</a>
+            <a href="#" className="hover:text-emerald-600 transition">আমাদের সম্পর্কে</a>
+            <a href="#" className="hover:text-emerald-600 transition">যোগাযোগ</a>
+            <a href="#" className="hover:text-emerald-600 transition">প্রাইভেসি পলিসি</a>
+            <a href="#" className="hover:text-emerald-600 transition">টার্মস</a>
           </div>
 
           <p className="text-xs text-slate-400 font-medium">
