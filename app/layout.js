@@ -8,7 +8,7 @@ const hindSiliguri = Hind_Siliguri({
 });
 
 export const metadata = {
-  title: "NIK EARNING - স্মার্ট উপার্জন প্ল্যাটফর্ম",
+  title: "LITE EARNING - স্মার্ট উপার্জন প্ল্যাটফর্ম",
   description: "বাংলাদেশের সেরা প্রিমিয়াম ডিজিটাল আর্নিং প্ল্যাটফর্ম",
 };
 
