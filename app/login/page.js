@@ -175,7 +175,7 @@ export default function LoginPage() {
           <div className="flex items-center gap-1.5 text-slate-500">
             <Code className="w-4 h-4 text-emerald-600" />
             <span>Developed by</span>
-            <span className="text-emerald-700 font-extrabold tracking-wider">NEXUSLAB</span>
+            <span className="text-emerald-700 font-extrabold tracking-wider">RAYHAN_ISLAM</span>
           </div>
 
           <motion.a
