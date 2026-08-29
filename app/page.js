@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { 
   Rocket, LogIn, UserPlus, Zap, ShieldCheck, Headphones, 
   MessageCircle, Star, ArrowRight, Info, Menu 
@@ -60,12 +60,12 @@ export default function Home() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  // লগইন বা রেজিস্ট্রেশন বাটনে ক্লিক করলে কাজ করার ফাংশন
+  // নেভিগেশন ও লোডিং ফাংশন
   const handleNavigation = (path = "/login") => {
     setIsLoading(true);
     setTimeout(() => {
       router.push(path);
-    }, 1500); // ১.৫ সেকেন্ড লোডিং এনিমেশন দেখাবে
+    }, 1500);
   };
 
   return (
@@ -220,6 +220,84 @@ export default function Home() {
               <p className="text-xs md:text-sm text-slate-600 font-semibold">{stat.label}</p>
             </motion.div>
           ))}
+        </div>
+      </motion.section>
+
+      {/* FEATURES SECTION */}
+      <motion.section 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={sectionVariant}
+        className="px-4 py-16 bg-white/40 border-t border-emerald-100/60"
+      >
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-900 mb-2">
+            কেন <span className="text-amber-500">LITE EARNING?</span>
+          </h2>
+          <p className="text-slate-600 font-medium mb-10">আধুনিক প্রযুক্তি ও প্রিমিয়াম সেবা একত্রে</p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* CARD 1 */}
+            <motion.div 
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handleNavigation('/login')}
+              className="bg-white/80 p-6 rounded-3xl border border-emerald-100 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group"
+            >
+              <motion.div 
+                whileHover={{ rotate: 12, scale: 1.1 }}
+                className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300"
+              >
+                <Zap className="w-8 h-8 fill-current" />
+              </motion.div>
+              <h3 className="text-xl font-bold text-emerald-900 mb-2">দ্রুত পেমেন্ট</h3>
+              <p className="text-slate-600 text-sm mb-4 leading-relaxed">বিকাশ, নগদ বা ব্যাংকে তাৎক্ষণিক পেমেন্ট পাবেন</p>
+              <span className="mt-auto px-4 py-1.5 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm hover:bg-amber-600 transition">
+                প্রিমিয়াম
+              </span>
+            </motion.div>
+
+            {/* CARD 2 */}
+            <motion.div 
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handleNavigation('/login')}
+              className="bg-white/90 p-6 rounded-3xl border-2 border-emerald-500 shadow-md hover:shadow-xl flex flex-col items-center text-center relative cursor-pointer group"
+            >
+              <motion.div 
+                whileHover={{ scale: 1.15 }}
+                className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center mb-4 shadow-lg shadow-emerald-600/30 group-hover:bg-emerald-700 transition"
+              >
+                <ShieldCheck className="w-8 h-8" />
+              </motion.div>
+              <h3 className="text-xl font-bold text-emerald-900 mb-2">১০০% নিরাপদ</h3>
+              <p className="text-slate-600 text-sm mb-4 leading-relaxed">আপনার ডেটা ও ইনকাম সম্পূর্ণ সুরক্ষিত</p>
+              <span className="mt-auto px-4 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-full shadow-sm hover:bg-emerald-700 transition">
+                ভেরিফাইড
+              </span>
+            </motion.div>
+
+            {/* CARD 3 */}
+            <motion.div 
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handleNavigation('/login')}
+              className="bg-white/80 p-6 rounded-3xl border border-emerald-100 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-all cursor-pointer group"
+            >
+              <motion.div 
+                whileHover={{ rotate: -12, scale: 1.1 }}
+                className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300"
+              >
+                <Headphones className="w-8 h-8" />
+              </motion.div>
+              <h3 className="text-xl font-bold text-emerald-900 mb-2">২৪/৭ সাপোর্ট</h3>
+              <p className="text-slate-600 text-sm mb-4 leading-relaxed">যেকোনো সময় আমাদের টিম আপনার পাশে</p>
+              <span className="mt-auto px-4 py-1.5 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm hover:bg-amber-600 transition">
+                সাপোর্ট
+              </span>
+            </motion.div>
+          </div>
         </div>
       </motion.section>
 
