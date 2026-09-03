@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { 
   Rocket, LogIn, UserPlus, Zap, ShieldCheck, Headphones, 
-  MessageCircle, Star, ArrowRight, Info, Menu 
+  MessageCircle, Star, ArrowRight, Info, Menu, Quote 
 } from "lucide-react";
 
 // ইংরেজি সংখ্যাকে বাংলায় রূপান্তর
@@ -55,6 +55,57 @@ const sectionVariant = {
     transition: { duration: 0.6, ease: "easeOut" } 
   }
 };
+
+// 🟢 রিভিউ কার্ডের জন্য স্ট্যাগার অ্যানিমেশন
+const reviewContainerVariant = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+  }
+};
+
+const reviewCardVariant = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
+
+// 🟢 রিভিউ ডেটা
+const reviews = [
+  {
+    name: "সাদিয়া আক্তার",
+    role: "স্টুডেন্ট • ঢাকা",
+    initial: "সা",
+    quote: "পড়াশোনার পাশাপাশি ঘরে বসে কাজ করছি। পেমেন্ট বিকাশে দ্রুত পেয়ে যাই, একদমই দেরি হয় না।",
+    color: "from-emerald-500 to-emerald-600"
+  },
+  {
+    name: "রাকিব হাসান",
+    role: "ফ্রিল্যান্সার • চট্টগ্রাম",
+    initial: "রা",
+    quote: "প্ল্যাটফর্মটা খুবই ইউজার-ফ্রেন্ডলি। টাস্কগুলো সহজ আর সাপোর্ট টিম সবসময় হেল্পফুল।",
+    color: "from-amber-500 to-amber-600"
+  },
+  {
+    name: "নুসরাত জাহান",
+    role: "গৃহিণী • সিলেট",
+    initial: "নু",
+    quote: "সংসার সামলে অবসর সময়ে ভালো একটা আয়ের পথ পেয়েছি। LITE EARNING সত্যিই নির্ভরযোগ্য।",
+    color: "from-teal-500 to-emerald-600"
+  },
+  {
+    name: "তানভীর আহমেদ",
+    role: "চাকরিজীবী • রাজশাহী",
+    initial: "তা",
+    quote: "চাকরির পাশাপাশি বাড়তি ইনকামের জন্য পারফেক্ট। ২৪/৭ সাপোর্ট পাওয়ায় নিশ্চিন্তে কাজ করি।",
+    color: "from-emerald-600 to-teal-600"
+  }
+];
 
 export default function Home() {
   const router = useRouter();
@@ -309,6 +360,85 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+
+      {/* 🟢 নতুন: TESTIMONIALS / REVIEWS SECTION */}
+      <section className="px-4 py-16 relative overflow-hidden">
+        {/* সেকশন ব্যাকগ্রাউন্ড গ্লো */}
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <div className="absolute top-1/4 left-0 w-72 h-72 bg-emerald-200/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-amber-200/30 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-emerald-200 rounded-full text-xs font-bold text-emerald-800 shadow-sm mb-4">
+              <MessageCircle className="w-3.5 h-3.5 text-amber-500" />
+              <span>ইউজার রিভিউ</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-900 mb-2">
+              আমাদের <span className="text-amber-500">ইউজাররা</span> কী বলছেন
+            </h2>
+            <p className="text-slate-600 font-medium mb-10">
+              হাজারো সন্তুষ্ট ব্যবহারকারীর আস্থা LITE EARNING এ
+            </p>
+          </motion.div>
+
+          {/* রিভিউ গ্রিড */}
+          <motion.div
+            variants={reviewContainerVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {reviews.map((review, idx) => (
+              <motion.div
+                key={idx}
+                variants={reviewCardVariant}
+                whileHover={{ y: -10, rotate: -1, scale: 1.03 }}
+                className="group relative bg-white/70 backdrop-blur-xl p-6 rounded-3xl border border-emerald-100/80 shadow-sm hover:shadow-2xl hover:shadow-emerald-600/10 hover:border-emerald-300 transition-all duration-300 text-left flex flex-col"
+              >
+                {/* কোট আইকন */}
+                <Quote className="absolute top-5 right-5 w-8 h-8 text-emerald-100 group-hover:text-amber-200 transition-colors duration-300" />
+
+                {/* অ্যাভাটার + নাম */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${review.color} text-white flex items-center justify-center font-extrabold text-lg shadow-md border-2 border-white`}>
+                    {review.initial}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-emerald-900 text-sm leading-tight">{review.name}</h4>
+                    <p className="text-xs text-slate-500 font-medium">{review.role}</p>
+                  </div>
+                </div>
+
+                {/* ৫-স্টার রেটিং */}
+                <div className="flex items-center gap-0.5 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  ))}
+                </div>
+
+                {/* রিভিউ টেক্সট */}
+                <p className="text-slate-600 text-sm leading-relaxed flex-grow">
+                  “{review.quote}”
+                </p>
+
+                {/* ভেরিফাইড ব্যাজ */}
+                <div className="mt-4 pt-4 border-t border-emerald-50 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                  <span className="text-[11px] font-semibold text-emerald-600">ভেরিফাইড ইউজার</span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
       {/* CTA BANNER */}
       <motion.section className="px-4 py-8">
