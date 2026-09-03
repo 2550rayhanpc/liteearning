@@ -1,59 +1,76 @@
 import { NextResponse } from "next/server";
-import { connectToDatabase } from "@/lib/mongodb";
-import User from "@/models/User";
+import { connectToDatabase } from "../../../lib/mongodb";
+import User from "../../../models/User";
 import bcrypt from "bcryptjs";
 
-export async function POST(req) {
+export async function POST(request) {
   try {
-    const { email, password } = await req.json();
+    const { identifier, password } = await request.json();
 
-    // ১. ফিল্ড চেকিং
-    if (!email || !password) {
+    if (!identifier || !password) {
       return NextResponse.json(
-        { message: "ইমেইল এবং পাসওয়ার্ড প্রদান করুন!" },
+        {
+          message: "ইমেইল/মোবাইল এবং পাসওয়ার্ড প্রদান করুন।",
+        },
         { status: 400 }
       );
     }
 
-    // ২. ডাটাবেসে কানেক্ট
     await connectToDatabase();
 
-    // ৩. ইউজার খুঁজে দেখা
-    const user = await User.findOne({ email });
+    const searchValue = identifier.trim();
+
+    const user = await User.findOne({
+      $or: [
+        { email: searchValue.toLowerCase() },
+        { phone: searchValue },
+      ],
+    });
+
     if (!user) {
       return NextResponse.json(
-        { message: "এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি!" },
+        {
+          message: "এই ইমেইল বা মোবাইল দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি।",
+        },
         { status: 404 }
       );
     }
 
-    // ৪. পাসওয়ার্ড ভেরিফাই করা
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
-    if (!isPasswordMatch) {
+    const passwordMatched = await bcrypt.compare(
+      password,
+      user.password
+    );
+
+    if (!passwordMatched) {
       return NextResponse.json(
-        { message: "পাসওয়ার্ড সঠিক নয়!" },
+        {
+          message: "পাসওয়ার্ড সঠিক নয়।",
+        },
         { status: 401 }
       );
     }
 
-    // ৫. সফল লগইন রেসপন্স
     return NextResponse.json(
       {
-        message: "লগইন সফল হয়েছে!",
+        message: "লগইন সফল হয়েছে!",
         user: {
-          id: user._id,
+          id: user._id.toString(),
           fullName: user.fullName,
           email: user.email,
           phone: user.phone,
           role: user.role,
+          balance: user.balance,
         },
       },
       { status: 200 }
     );
   } catch (error) {
     console.error("Login Error:", error);
+
     return NextResponse.json(
-      { message: "সার্ভার এরর: " + error.message },
+      {
+        message: "সার্ভারে সমস্যা হয়েছে।",
+      },
       { status: 500 }
     );
   }
