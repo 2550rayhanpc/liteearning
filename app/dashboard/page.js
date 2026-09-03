@@ -544,10 +544,12 @@ export default function DashboardPage() {
             >
               <LogOut className="w-4 h-4" />
               লগআউট
-            </motion.button>
-          </motion.div>
-        </div>
-      </motion.div>
+  
+<motion.main>
+  <motion.div>
+    ...
+  </motion.div>
+</motion.main>
 
       {/* 🟢 বটম নেভিগেশন বার (মোবাইল) */}
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-t border-emerald-100 md:hidden">
